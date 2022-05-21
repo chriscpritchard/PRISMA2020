@@ -42,7 +42,7 @@ jobs:
         run: R CMD INSTALL .
 
       - name: Deploy to shinyapps.io
-        working-directory: ./inst/extdata/shiny-examples
+        working-directory: ./inst/extdata/shiny-examples/PRISMA_flowdiagram
         run: |
           library(rsconnect)
           deployApp()
