@@ -1,0 +1,50 @@
+on:
+  release:
+    types: [released]
+
+name: Deploy to ShinyApps
+
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+    env:
+      SHINY_ACC_NAME: ${{ secrets.SHINY_ACC_NAME }}
+      TOKEN: ${{secrets.TOKEN}}
+      SECRET: ${{secrets.SECRET}}
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: r-lib/actions/setup-r@v1
+
+      - uses: r-lib/actions/setup-pandoc@v1
+
+      - name: Query dependencies
+        run: |
+          install.packages('remotes')
+          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
+          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
+        shell: Rscript {0}
+
+      - name: Restore R package cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+
+      - name: Install dependencies
+        run: |
+          remotes::install_deps(dependencies = TRUE)
+          install.packages(c("rsconnect","shiny","shinyjs","rsvg","DT","rio","devtools"))
+        shell: Rscript {0}
+
+      - name: Install package
+        run: R CMD INSTALL .
+
+      - name: Deploy to shinyapps.io
+        working-directory: ./inst/shiny-examples/PRISMA_flowdiagram
+        run: |
+          library(rsconnect)
+          setAccountInfo(name = Sys.getenv("SHINY_ACC_NAME", unset=NA), token = Sys.getenv("TOKEN", unset=NA), secret = Sys.getenv("SECRET", unset=NA))
+          deployApp(appName = "prisma_flowdiagram")
+        shell: Rscript {0}
