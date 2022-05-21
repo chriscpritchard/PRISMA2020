@@ -42,6 +42,7 @@ jobs:
         run: R CMD INSTALL .
 
       - name: Deploy to shinyapps.io
+        working-directory: ./inst/extdata/shiny-examples
         run: |
           library(rsconnect)
           deployApp()
