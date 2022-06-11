@@ -4,7 +4,9 @@ previous_studies,node5,box1,Studies included in previous version of review,Studi
 previous_reports,NA,box1,Reports of studies included in previous version of review,Reports of studies included in previous version of review,NA,previous_reports.html,0
 NA,node6,newstud,Yellow title box; Identification of new studies via databases and registers,Identification of new studies via databases and registers,Yellow title box; Identification of new studies via databases and registers,newstud.html,0
 database_results,node7,box2,Records identified from: Databases,Databases,Records identified from: Databases,database_results.html,0
+database_specific_results,NA,box2,Records identified from: specific databases,Specific Databases,"Records identified from specific databases: [separate database and numbers using ; e.g. Database 1, xxx; Database 2, xxx; Database 3, xxx",database_results.html,"Database 1, xxx; Database 2, xxx; Database 3, xxx"
 register_results,NA,box2,Records identified from: Registers,Registers,NA,NA,0
+register_specific_results,NA,box2,Records identified from: specific registers,Specific Registers,"Records identified from specific registers: [separate register and numbers using ; e.g. Register 1, xxx; Register 2, xxx; Register 3, xxx",database_results.html,"Register 1, xxx; Register 2, xxx; Register 3, xxx"
 NA,node16,othstud,Grey title box; Identification of new studies via other methods,Identification of new studies via other methods,Grey title box; Identification of new studies via other methods,othstud.html,0
 website_results,node17,box11,Records identified from: Websites,Websites,Records identified from: Websites,website_results.html,0
 organisation_results,,box11,Records identified from: Organisations,Organisations,NA,NA,0
