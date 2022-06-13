@@ -20,8 +20,8 @@ PRISMA_save(
 HTML, ZIP, PDF, PNG, SVG, PS and WEBP
 (if NA, the filetype will be calculated out based on the file extension)
 HTML files maintain hyperlinks and tooltips
-The ZIP option creates an archive containing
-the HTML file, alongside supporting javascript and css files in an adjacent folder,
+The ZIP option creates an archive containing the HTML file,
+alongside supporting javascript and css files in an adjacent folder,
 instead of embedded base64 within the HTML file}
 
 \item{overwrite}{if TRUE, will overwrite an existing file}

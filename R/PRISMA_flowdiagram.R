@@ -18,8 +18,8 @@
 #' other studies were sought.
 #' @param detail_databases Logical argument (TRUE or FALSE) specifying whether
 #' to list specific databases.
-#' @param detail_registries Logical argument (TRUE or FALSE) specifying whether
-#' to list specific registries.
+#' @param detail_registers Logical argument (TRUE or FALSE) specifying whether
+#' to list specific registers.
 #' @param font The font for text in each box. The default is 'Helvetica'.
 #' @param fontsize The font size for text in each box. The default is '12'.
 #' @param title_colour The colour for the upper middle title box (new studies).

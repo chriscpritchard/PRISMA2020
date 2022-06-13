@@ -4,10 +4,14 @@
 \alias{PRISMA_get_height_}
 \title{Calculate the correct height of a box from a list (e.g. of exclusion reasons)}
 \usage{
-PRISMA_get_height_(list)
+PRISMA_get_height_(list, offset, min = 3)
 }
 \arguments{
 \item{list}{a correctly wrapped (using stringr) list}
+
+\item{offset}{the offset height (e.g. 3.5)}
+
+\item{min}{the minimum number of rows before adjusting}
 }
 \value{
 the height of the box

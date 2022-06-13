@@ -24,8 +24,8 @@ An interactive flow diagram plot.
 }
 \description{
 DEPRECATED -
-Converts a PRISMA systematic review flow diagram into an interactive HTML plot,
-for embedding links from each box.
+Converts a PRISMA systematic review flow diagram
+into an interactive HTML plot, for embedding links from each box.
 }
 \seealso{
 \code{\link[=PRISMA_interactive_]{PRISMA_interactive_()}}

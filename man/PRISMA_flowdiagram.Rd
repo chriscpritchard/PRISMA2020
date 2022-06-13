@@ -42,6 +42,9 @@ other studies were sought.}
 \item{detail_databases}{Logical argument (TRUE or FALSE) specifying whether
 to list specific databases.}
 
+\item{detail_registers}{Logical argument (TRUE or FALSE) specifying whether
+to list specific registers.}
+
 \item{fontsize}{The font size for text in each box. The default is '12'.}
 
 \item{font}{The font for text in each box. The default is 'Helvetica'.}
@@ -72,9 +75,6 @@ is 'Black'. See 'DiagrammeR' colour scheme
 
 \item{side_boxes}{Whether or not to include the
 blue label boxes along the side}
-
-\item{detail_registries}{Logical argument (TRUE or FALSE) specifying whether
-to list specific registries.}
 }
 \value{
 A flow diagram plot.
