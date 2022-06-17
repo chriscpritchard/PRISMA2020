@@ -1,7 +1,6 @@
 # Utility functions for PRISMA_flowdiagram
 
 #' Calculate the correct height of a box from a list (e.g. of exclusion reasons)
-#'
 #' @description Get the correct height for a box
 #' @param list a correctly wrapped (using stringr) list
 #' @param offset the offset height (e.g. 3.5)
@@ -18,7 +17,6 @@ PRISMA_get_height_ <- function (list, offset, min = 3) { #nolint
 }
 
 #' Generate / insert JS for labels
-#'
 #' @description Generate the javascript method to insert the side labels
 #' @param plot the plot object (without side labels)
 #' @param identification_text the text to use as the "identification" label

@@ -198,7 +198,7 @@ PRISMA_flowdiagram <- function( #nolint
         width = 3.5,
         height = 0.5,
         pos = '", xstart + 1, ",", ystart + (id_adj_factor * 1.2), "!',
-        tooltip = '", tooltips[1], "'
+        tooltip = '", tooltips["prevstud"], "'
       ]
       node [
         shape = box,
@@ -211,7 +211,7 @@ PRISMA_flowdiagram <- function( #nolint
         width = 3.5,
         height = 0.5,
         pos = '", xstart + 1, ",", ystart + id_adj_factor, "!',
-        tooltip = '", tooltips[2], "'
+        tooltip = '", tooltips["previous_studies"], "'
       ]"
     )
     finalnode <- paste0(
@@ -244,7 +244,7 @@ PRISMA_flowdiagram <- function( #nolint
         width = 3.5,
         height = 0.5,
         pos = '", xstart + 5, ",", ystart + 0, "!',
-        tooltip = '", tooltips[19], "'
+        tooltip = '", tooltips["total_studies"], "'
       ]"
     )
     prev_rank1 <- "{rank = same; A; 19}"
@@ -279,7 +279,7 @@ PRISMA_flowdiagram <- function( #nolint
         pos = '", -1.4, ",", ystart + id_adj_factor, "!',
         width = 0.4,
         height = 1.5,
-        tooltip = '", tooltips[20], "'
+        tooltip = '", tooltips["identification"], "'
       ];
       screening [
         color = LightSteelBlue2,
@@ -288,7 +288,7 @@ PRISMA_flowdiagram <- function( #nolint
         pos = '", -1.4, ",", ystart + 4.5, "!',
         width = 0.4,
         height = 2.5,
-        tooltip = '", tooltips[21], "'
+        tooltip = '", tooltips["screening"], "'
       ];
       included [
         color = LightSteelBlue2,
@@ -297,7 +297,7 @@ PRISMA_flowdiagram <- function( #nolint
         pos = '", -1.4, ",", h_adj1 + 0.87, "!',
         width = 0.4,
         height = ", 2.5 - h_adj2, ",
-        tooltip = '", tooltips[22], "'
+        tooltip = '", tooltips["included"], "'
       ];\n"
     )
   } else {
@@ -404,7 +404,7 @@ PRISMA_flowdiagram <- function( #nolint
         width = 7.5,
         height = 0.5,
         pos = '", xstart + 15, ",", ystart + (id_adj_factor * 1.2), "!',
-        tooltip = '", tooltips[5], "'
+        tooltip = '", tooltips["othstud"], "'
       ]
       node [
         shape = box,
@@ -422,7 +422,7 @@ PRISMA_flowdiagram <- function( #nolint
         width = 3.5,
         height = 0.5,
         pos = '", xstart + 13, ",", ystart + id_adj_factor, "!',
-        tooltip = '", tooltips[6], "'
+        tooltip = '", tooltips["website_results"], "'
       ]
       node [
         shape = box,
@@ -437,7 +437,7 @@ PRISMA_flowdiagram <- function( #nolint
         width = 3.5,
         height = 0.5,
         pos = '", xstart + 13, ",", ystart + 4.5, "!',
-        tooltip = '", tooltips[12], "'
+        tooltip = '", tooltips["other_sought_reports"], "'
       ]
       node [
         shape = box,
@@ -453,7 +453,7 @@ PRISMA_flowdiagram <- function( #nolint
         width = 3.5,
         height = 0.5,
         pos = '", xstart + 17, ",", ystart + 4.5, "!',
-        tooltip = '", tooltips[13], "'
+        tooltip = '", tooltips["other_notretrieved_reports"], "'
       ]
       node [
         shape = box,
@@ -466,7 +466,7 @@ PRISMA_flowdiagram <- function( #nolint
         width = 3.5,
         height = 0.5,
         pos = '", xstart + 13, ",", ystart + 3.5, "!',
-        tooltip = '", tooltips[16], "'
+        tooltip = '", tooltips["other_assessed"], "'
       ]
       node [
         shape = box,
@@ -483,7 +483,7 @@ PRISMA_flowdiagram <- function( #nolint
           ",",
           ystart + PRISMA_get_height_(dbr_excluded, 3.5),
         "!',
-        tooltip = '", tooltips[17], "'
+        tooltip = '", tooltips["other_excluded"], "'
       ]\n"
     )
     extraedges <- "16->18;"
@@ -654,7 +654,7 @@ PRISMA_flowdiagram <- function( #nolint
           width = 7.5,
           height = 0.5,
           pos = '", xstart + 7, ",", ystart + (id_adj_factor * 1.2), "!',
-          tooltip = '", tooltips[3], "'
+          tooltip = '", tooltips["newstud"], "'
         ]
         node [
           shape = box,
@@ -670,7 +670,7 @@ PRISMA_flowdiagram <- function( #nolint
           height = 0.5,
           height = 0.5,
           pos = '", xstart + 5, ",", ystart + id_adj_factor, "!',
-          tooltip = '", tooltips[4], "'
+          tooltip = '", tooltips["database_results"], "'
         ]
         node [
           shape = box,
@@ -686,7 +686,7 @@ PRISMA_flowdiagram <- function( #nolint
           width = 3.5,
           height = 0.5,
           pos = '", xstart + 9, ",", ystart + id_adj_factor, "!',
-          tooltip = '", tooltips[7], "'
+          tooltip = '", tooltips["duplicates"], "'
         ]
         node [
           shape = box,
@@ -699,7 +699,7 @@ PRISMA_flowdiagram <- function( #nolint
           height = 0.5,
           height = 0.5,
           pos = '", xstart + 5, ",", ystart + 5.5, "!',
-          tooltip = '", tooltips[8], "'
+          tooltip = '", tooltips["records_screened"], "'
         ]
         node [
           shape = box,
@@ -711,7 +711,7 @@ PRISMA_flowdiagram <- function( #nolint
           width = 3.5,
           height = 0.5,
           pos = '", xstart + 9, ",", ystart + 5.5, "!',
-          tooltip = '", tooltips[9], "'
+          tooltip = '", tooltips["records_excluded"], "'
         ]
         node [
           shape = box,
@@ -725,7 +725,7 @@ PRISMA_flowdiagram <- function( #nolint
           width = 3.5,
           height = 0.5,
           pos = '", xstart + 5, ",", ystart + 4.5, "!',
-          tooltip = '", tooltips[10], "'
+          tooltip = '", tooltips["dbr_sought_reports"], "'
         ]
         node [
           shape = box,
@@ -739,7 +739,7 @@ PRISMA_flowdiagram <- function( #nolint
           width = 3.5,
           height = 0.5,
           pos = '", xstart + 9, ",", ystart + 4.5, "!',
-          tooltip = '", tooltips[11], "'
+          tooltip = '", tooltips["dbr_notretrieved_reports"], "'
         ]
         node [
           shape = box,
@@ -751,7 +751,7 @@ PRISMA_flowdiagram <- function( #nolint
           width = 3.5,
           height = 0.5,
           pos = '", xstart + 5, ",", ystart + 3.5, "!',
-          tooltip = '", tooltips[14], "'
+          tooltip = '", tooltips["dbr_assessed"], "'
         ]
         node [
           shape = box,
@@ -769,7 +769,7 @@ PRISMA_flowdiagram <- function( #nolint
             ",",
             ystart + PRISMA_get_height_(dbr_excluded, 3.5),
           "!',
-          tooltip = '", tooltips[15], "'
+          tooltip = '", tooltips["dbr_excluded"], "'
         ]
         node [
           shape = box,
@@ -783,7 +783,7 @@ PRISMA_flowdiagram <- function( #nolint
           width = 3.5,
           height = 0.5,
           pos = '", xstart + 5, ",", ystart + 1.5, "!',
-          tooltip = '", tooltips[18], "'
+          tooltip = '", tooltips["new_studies"], "'
         ]",
         othernodes,
         finalnode,
@@ -1272,7 +1272,18 @@ PRISMA_data <- function(data) { #nolint
       ]$n
     )
   )
-  tooltips <- stats::na.omit(data$tooltips)
+  tooltips <- list()
+  for (i in seq_len(nrow(data))) {
+    if (!is.na(data[i, ]$tooltips)) {
+      if (is.na(data[i, ]$data)) {
+        name <- data[i, ]$box
+      } else {
+        name <- data[i, ]$data
+      }
+      tooltips[[name]] <- data[i, ]$tooltips
+    }
+  }
+
   urls <- data.frame(
     box = data[!duplicated(data$box), ]$box,
     url = data[!duplicated(data$box), ]$url
