@@ -749,7 +749,7 @@ server <- function(input, output) {
         rv$data[which(rv$data$data == "included"), "boxtext"],
         '"]])',
         "\n",
-        "createLabels(nodeMap)",
+        "createLabels(nodeMap)"
       )
     )
     plot <- PRISMA2020::PRISMA_flowdiagram(
