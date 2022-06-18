@@ -6,6 +6,7 @@ on:
     branches:
       - main
       - master
+      - actions-update
   push:
     branches:
       - main
@@ -64,8 +65,9 @@ jobs:
           name: ${{ runner.os }}-r${{ matrix.config.r }}-results
           path: check
   pkgdown:
+    needs: R-CMD-check
     runs-on: macOS-latest
-    if: github.event_name == 'push' && github.ref_name == ('master' || 'main')
+    if: github.event_name == 'push' && github.ref_name == ('master' || 'main' || 'actions-update')
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
@@ -103,12 +105,14 @@ jobs:
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
           Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
-  deployment/Release:
+  deployment_release:
+    needs: R-CMD-check
     runs-on: ubuntu-latest
     if: github.event_name == 'release'
+    url: https://${{secrets.SHINY_ACC_NAME}}/%{{secrets.SHINY_APP_NAME}}/
     environment: Release
     env:
-      SHINY_ACC_NAME: ${{ secrets.SHINY_ACC_NAME }}
+      SHINY_ACC_NAME: ${{secrets.SHINY_ACC_NAME}}
       SHINY_APP_NAME: ${{secrets.SHINY_APP_NAME}}
       TOKEN: ${{secrets.TOKEN}}
       SECRET: ${{secrets.SECRET}}
@@ -124,6 +128,30 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      
       - name: deploy release
+        uses: ./.github/actions/deploy-shinyapps-io
+  deployment_latest:
+    needs: R-CMD-check
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref_name == ('master' || 'main' || 'actions-update')
+    url: https://${{secrets.SHINY_ACC_NAME}}/%{{secrets.SHINY_APP_NAME}}/
+    environment: Latest
+    env:
+      SHINY_ACC_NAME: ${{secrets.SHINY_ACC_NAME}}
+      SHINY_APP_NAME: ${{secrets.SHINY_APP_NAME}}
+      TOKEN: ${{secrets.TOKEN}}
+      SECRET: ${{secrets.SECRET}}
+      ANALYTICS: TRUE
+      ANALYTICS_JS: ${{secrets.ANALYTICS_JS}}
+      ANALYTICS_JS_FN: analytics.js
+      ANALYTICS_ID: ${{secrets.ANALYTICS_ID}}
+      ANALYTICS_HOST: ${{secrets.ANALYTICS_HOST}}
+      GITHUB_PAT: ${{secrets.GITHUB_TOKEN}}
+      DEPLOY_REPO: ${{github.repository}}
+      DEPLOY_REF: ${{github.ref}}
+      SHINY_APP_WORKING_DIRECTORY: ./inst/shiny-examples/PRISMA_flowdiagram
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: deploy latest
         uses: ./.github/actions/deploy-shinyapps-io
