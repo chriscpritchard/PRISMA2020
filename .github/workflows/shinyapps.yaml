@@ -19,7 +19,7 @@ jobs:
         run: |
           sed -i 's/REPLACE_WITH_REAL_URL/${{secrets.ANALYTICS_JS}}/' ./www/analytics.R
           sed -i 's/REPLACE_WITH_REAL_ID/${{secrets.ANALYTICS_ID}}/' ./www/analytics.R
-          sed -i -e '/INSERT_ANALYTICS_CODE/r ./www/analytics.R' ./app.R
+          sed -i '/INSERT_ANALYTICS_CODE/e cat ./www/analytics.R' ./app.R
           cat ./www/app.R |grep -B 10 -A 10 INSERT_ANALYTICS_CODE
         working-directory: ./inst/shiny-examples/PRISMA_flowdiagram
 
