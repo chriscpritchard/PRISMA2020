@@ -23,7 +23,7 @@ jobs:
         working-directory: ./inst/shiny-examples/PRISMA_flowdiagram
         run: |
           sed -i "s#REPLACE_WITH_REAL_URL#${ANALYTICS_JS//#/\\#}#g" ./www/analytics.R
-          sed -i "s#REPLACE_WITH_REAL_ID#${ANALYTICS_ID//#/\\#}#g' ./www/analytics.R
+          sed -i "s#REPLACE_WITH_REAL_ID#${ANALYTICS_ID//#/\\#}#g" ./www/analytics.R
           sed -i '/INSERT_ANALYTICS_CODE/r ./www/analytics.R' ./app.R
           touch .Renviron
           echo ANALYTICS="$ANALYTICS" >> .Renviron
