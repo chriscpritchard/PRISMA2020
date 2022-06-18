@@ -13,6 +13,7 @@ jobs:
       SECRET: ${{secrets.SECRET}}
       ANALYTICS_JS: ${{secrets.ANALYTICS_JS}}
       ANALYTICS_ID: ${{secrets.ANALYTICS_ID}}
+      GITHUB_PAT: ${{secrets.GITHUB_TOKEN}}
       ANALYTICS: TRUE
       DEPLOY_REPO: ${{github.repository}}
       DEPLOY_REF: "${{github.ref}}"
