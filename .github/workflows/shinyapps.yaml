@@ -11,18 +11,20 @@ jobs:
       SHINY_ACC_NAME: ${{ secrets.SHINY_ACC_NAME }}
       TOKEN: ${{secrets.TOKEN}}
       SECRET: ${{secrets.SECRET}}
+      ANALYTICS_JS: ${{secrets.ANALYTICS_JS}}
+      ANALYTICS_ID: ${{secrets.ANALYTICS_ID}}
       ANALYTICS: TRUE
     steps:
       - uses: actions/checkout@v2
 
       - name: Enable umami analytics
+        working-directory: ./inst/shiny-examples/PRISMA_flowdiagram
         run: |
-          sed -i 's/REPLACE_WITH_REAL_URL/${{secrets.ANALYTICS_JS}}/g' ./www/analytics.R
-          sed -i 's/REPLACE_WITH_REAL_ID/${{secrets.ANALYTICS_ID}}/g' ./www/analytics.R
+          sed -i 's/REPLACE_WITH_REAL_URL/$ANALYTICS_JS/g' ./www/analytics.R
+          sed -i 's/REPLACE_WITH_REAL_ID/$ANALYTICS_ID/g' ./www/analytics.R
           sed -i '/INSERT_ANALYTICS_CODE/r ./www/analytics.R' ./app.R
           cat ./www/analytics.R
           cat ./app.R |grep -B 10 -A 10 INSERT_ANALYTICS_CODE
-        working-directory: ./inst/shiny-examples/PRISMA_flowdiagram
 
       - uses: r-lib/actions/setup-r@v1
 
