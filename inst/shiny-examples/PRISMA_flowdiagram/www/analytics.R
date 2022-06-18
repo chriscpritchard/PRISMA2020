@@ -4,7 +4,7 @@
 # data. The web server is configured to not log IP addresses.
 # the final comma is important as we insert this code
 # when we deploy to shinyapps.io
-# the inserted JS can be viewed at: 
+# the inserted JS can be viewed at:
 # https://umami.christopherpritchard.co.uk/umami.js
   tags$head(
     tags$script(

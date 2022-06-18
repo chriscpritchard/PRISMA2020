@@ -20,22 +20,22 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Enable umami analytics
+      - name: Enable analytics & store environment variables
         working-directory: ./inst/shiny-examples/PRISMA_flowdiagram
         run: |
           sed -i 's/REPLACE_WITH_REAL_URL/$ANALYTICS_JS/g' ./www/analytics.R
           sed -i 's/REPLACE_WITH_REAL_ID/$ANALYTICS_ID/g' ./www/analytics.R
           sed -i '/INSERT_ANALYTICS_CODE/r ./www/analytics.R' ./app.R
+          touch .Renviron
+          echo ANALYTICS="$ANALYTICS" >> .Renviron
+          echo DEPLOY_LATEST="$DEPLOY_LATEST" >> .Renviron
+          echo DEPLOY_REPO="$DEPLOY_REPO" >> .Renviron
+          echo DEPLOY_REF="$DEPLOY_REF" >> .Renviron
+          cat .Renviron
 
       - uses: r-lib/actions/setup-r@v1
 
       - uses: r-lib/actions/setup-pandoc@v1
-
-      - uses: r-lib/actions/setup-r-dependencies@v1
-        with:
-          extra-packages: |
-            rsconnect
-            devtools
 
       - name: Query dependencies
         run: |
@@ -50,6 +50,12 @@ jobs:
           path: ${{ env.R_LIBS_USER }}
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+
+      - uses: r-lib/actions/setup-r-dependencies@v1
+        with:
+          extra-packages: |
+            rsconnect
+            devtools
 
       - name: Install package
         run: R CMD INSTALL .
