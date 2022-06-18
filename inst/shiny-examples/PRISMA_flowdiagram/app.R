@@ -141,6 +141,15 @@ ui <- tagList(
           'Created November 2020, Updated June 20222'
         )
       )
+      # the below enables us to insert code to inform the user about analytics
+      # if self hosting you can insert your own information here
+      # it is your responsibility to ensure compliance with regulations such as
+      # the EU GDPR
+      ### DO NOT MODIFY BEGIN ANALYTICS ###
+      #                                   #
+      #   INSERT_ANALYTICS_INFORMATION    #
+      #                                   #
+      #### DO NOT MODIFY END ANALYTICS ####
     ),
     # nolint end
     # Tab 2 ----

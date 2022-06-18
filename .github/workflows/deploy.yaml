@@ -6,12 +6,10 @@ on:
     branches:
       - main
       - master
-      - actions-update
   push:
     branches:
       - main
       - master
-      - actions-update
   workflow_dispatch:
   
 name: Check and Deploy
@@ -101,7 +99,7 @@ jobs:
           git config --local user.name "GitHub Actions"
           Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
   
-  deployment_release:
+  deploy-release:
     needs: R-CMD-check
     runs-on: ubuntu-latest
     if: github.event_name == 'release'
@@ -127,7 +125,7 @@ jobs:
       - name: deploy release
         uses: ./.github/actions/deploy-shinyapps-io
         
-  deployment_latest:
+  deploy-latest:
     needs: pkgdown
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
@@ -151,30 +149,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: deploy latest
-        uses: ./.github/actions/deploy-shinyapps-io
-  
-  deployment_pr:
-    needs: R-CMD-check
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    environment: 
-      name: Release
-      url: https://chriscpritchard.shinyapps.io/PRISMA_flowdiagram/
-    env:
-      SHINY_ACC_NAME: ${{secrets.SHINY_ACC_NAME}}
-      SHINY_APP_NAME: PRISMA_flowdiagram
-      TOKEN: ${{secrets.TOKEN}}
-      SECRET: ${{secrets.SECRET}}
-      ANALYTICS: true
-      ANALYTICS_JS: ${{secrets.ANALYTICS_JS}}
-      ANALYTICS_JS_FN: analytics.js
-      ANALYTICS_ID: ${{secrets.ANALYTICS_ID}}
-      ANALYTICS_HOST: ${{secrets.ANALYTICS_HOST}}
-      GITHUB_PAT: ${{secrets.GITHUB_TOKEN}}
-      DEPLOY_REPO: ${{github.repository}}
-      DEPLOY_REF: ${{github.ref}}
-      SHINY_APP_WORKING_DIRECTORY: ./inst/shiny-examples/PRISMA_flowdiagram
-    steps:
-      - uses: actions/checkout@v2
-      - name: deploy release
         uses: ./.github/actions/deploy-shinyapps-io

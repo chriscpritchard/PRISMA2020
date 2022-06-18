@@ -13,6 +13,7 @@ runs:
         sed -i "s#REPLACE_WITH_REAL_ID#${ANALYTICS_ID//#/\\#}#g" ./www/analytics.R
         sed -i "s#REPLACE_WITH_ANALYTICS_HOST#${ANALYTICS_HOST//#/\\#}#g" ./www/analytics.R
         sed -i '/INSERT_ANALYTICS_CODE/r ./www/analytics.R' ./app.R
+        sed -i '/INSERT_ANALYTICS_INFORMATION/r ./www/analytics-info.R' ./app.R 
         touch .Renviron
         echo ANALYTICS="$ANALYTICS" >> .Renviron
       shell: bash
