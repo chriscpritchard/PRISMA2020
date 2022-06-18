@@ -113,7 +113,7 @@ jobs:
       SHINY_APP_NAME: PRISMA_flowdiagram
       TOKEN: ${{secrets.TOKEN}}
       SECRET: ${{secrets.SECRET}}
-      ANALYTICS: TRUE
+      ANALYTICS: true
       ANALYTICS_JS: ${{secrets.ANALYTICS_JS}}
       ANALYTICS_JS_FN: analytics.js
       ANALYTICS_ID: ${{secrets.ANALYTICS_ID}}
@@ -128,7 +128,7 @@ jobs:
         uses: ./.github/actions/deploy-shinyapps-io
         
   deployment_latest:
-    needs: R-CMD-check
+    needs: pkgdown
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
     environment: 
@@ -139,7 +139,7 @@ jobs:
       SHINY_APP_NAME: PRISMA_flowdiagram_latest
       TOKEN: ${{secrets.TOKEN}}
       SECRET: ${{secrets.SECRET}}
-      ANALYTICS: TRUE
+      ANALYTICS: true
       ANALYTICS_JS: ${{secrets.ANALYTICS_JS}}
       ANALYTICS_JS_FN: analytics.js
       ANALYTICS_ID: ${{secrets.ANALYTICS_ID}}

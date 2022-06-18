@@ -6,7 +6,7 @@ runs:
   steps:
 
     - name: Enable analytics
-      if: env.ANALYTICS == TRUE
+      if: env.ANALYTICS
       working-directory: env.SHINY_APP_WORKING_DIRECTORY
       run: |
         curl ${ANALYTICS_JS} --output www/${ANALYTICS_JS_FN}
