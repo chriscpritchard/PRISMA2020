@@ -2,7 +2,7 @@ on:
   release:
     types: [released]
 
-name: Deploy to ShinyApps
+name: Deploy to ShinyApps (Latest Master)
 
 jobs:
   Deploy:
@@ -13,10 +13,11 @@ jobs:
       SECRET: ${{secrets.SECRET}}
       ANALYTICS_JS: ${{secrets.ANALYTICS_JS}}
       ANALYTICS_ID: ${{secrets.ANALYTICS_ID}}
+      SHINY_APP_NAME: ${{secrets.SHINY_APP_NAME}}-${{github.head_ref}}
       GITHUB_PAT: ${{secrets.GITHUB_TOKEN}}
       ANALYTICS: TRUE
       DEPLOY_REPO: ${{github.repository}}
-      DEPLOY_REF: "${{github.ref}}"
+      DEPLOY_REF: ${{github.ref}}
     steps:
       - uses: actions/checkout@v2
 
@@ -62,7 +63,7 @@ jobs:
         working-directory: ./inst/shiny-examples/PRISMA_flowdiagram
         run: |
           library(rsconnect)
-          setAccountInfo(name = Sys.getenv("SHINY_ACC_NAME", unset=NA), token = Sys.getenv("TOKEN", unset=NA), secret = Sys.getenv("SECRET", unset=NA))
-          deployApp(appName = "prisma_flowdiagram")
+          setAccountInfo(name = Sys.getenv("SHINY_ACC_NAME", unset = NA), token = Sys.getenv("TOKEN", unset = NA), secret = Sys.getenv("SECRET", unset=NA))
+          deployApp(appName = Sys.getenv("SHINY_APP_NAME", unset = NA)
         shell: Rscript {0}
         

@@ -14,6 +14,14 @@ ui <- tagList(
   tags$head(
     tags$script(
       src = "labels.js"
+    ),
+    tags$style(
+      type = "text/css",
+      "body {padding-top: 70px;}"
+    ),
+    tags$link(
+      rel = "shortcut icon",
+      href = "favicon.ico"
     )
   ),
   # the below enables us to utilise analytics when pushing to shinyapps.io.
@@ -27,6 +35,7 @@ ui <- tagList(
   #### DO NOT MODIFY END ANALYTICS ####
   navbarPage(
     "PRISMA Flow Diagram",
+    position = "fixed-top",
     # Tab 1 ----
     # nolint start
     tabPanel("Home",
@@ -86,9 +95,6 @@ ui <- tagList(
               ".csv"
             )
           ),
-          # actionButton("reset_data_upload", "Click to clear uploaded data",
-          # style="color: #fff; background-color: #e86868; border-color: #e86868"),
-          # br(),
           hr(),
           'Please cite as:',
           br(),
@@ -106,7 +112,6 @@ ui <- tagList(
           )
         )
       ),
-      # Show a plot of the generated distribution
       fluidRow(
         column(
           10,
@@ -133,7 +138,7 @@ ui <- tagList(
               src = "https://pngimg.com/uploads/github/github_PNG40.png"
             )
           ),
-          'Created November 2020, Updated June 2022'
+          'Created November 2020, Updated June 20222'
         )
       )
     ),

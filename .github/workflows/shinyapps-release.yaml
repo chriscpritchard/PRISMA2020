@@ -1,0 +1,73 @@
+on:
+  release:
+    types: [released]
+
+name: Deploy to ShinyApps (Release)
+
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+    env:
+      SHINY_ACC_NAME: ${{ secrets.SHINY_ACC_NAME }}
+      TOKEN: ${{secrets.TOKEN}}
+      SECRET: ${{secrets.SECRET}}
+      ANALYTICS_JS: ${{secrets.ANALYTICS_JS}}
+      ANALYTICS_JS_FN: analytics.js
+      ANALYTICS_ID: ${{secrets.ANALYTICS_ID}}
+      ANALYTICS_HOST: ${{secrets.ANALYTICS_HOST}}
+      SHINY_APP_NAME: ${{secrets.SHINY_APP_NAME}}
+      GITHUB_PAT: ${{secrets.GITHUB_TOKEN}}
+      ANALYTICS: TRUE
+      DEPLOY_REPO: ${{github.repository}}
+      DEPLOY_REF: ${{github.ref}}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Enable analytics & store environment variables
+        working-directory: ./inst/shiny-examples/PRISMA_flowdiagram
+        run: |
+          curl ${ANALYTICS_JS} --output www/${ANALYTICS_JS_FN}
+          sed -i "s#REPLACE_WITH_REAL_JS#${ANALYTICS_JS_FN//#/\\#}#g" ./www/analytics.R
+          sed -i "s#REPLACE_WITH_REAL_ID#${ANALYTICS_ID//#/\\#}#g" ./www/analytics.R
+          sed -i "s#REPLACE_WITH_ANALYTICS_HOST#${ANALYTICS_HOST//#/\\#}#g" ./www/analytics.R
+          sed -i '/INSERT_ANALYTICS_CODE/r ./www/analytics.R' ./app.R
+          touch .Renviron
+          echo ANALYTICS="$ANALYTICS" >> .Renviron
+          
+      - uses: r-lib/actions/setup-r@v2
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - name: Query dependencies
+        run: |
+          install.packages('remotes')
+          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
+          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
+        shell: Rscript {0}
+
+      - name: Restore R package cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            rsconnect
+            devtools
+
+      - name: Install package
+        run: |
+          devtools::install_github(repo = Sys.getenv("DEPLOY_REPO", unset = "nealhaddaway/PRISMA2020"), ref = Sys.getenv("DEPLOY_REF", unset = "HEAD"))
+        shell: Rscript {0}
+
+      - name: Deploy to shinyapps.io
+        working-directory: ./inst/shiny-examples/PRISMA_flowdiagram
+        run: |
+          library(rsconnect)
+          setAccountInfo(name = Sys.getenv("SHINY_ACC_NAME", unset = NA), token = Sys.getenv("TOKEN", unset = NA), secret = Sys.getenv("SECRET", unset=NA))
+          deployApp(appName = Sys.getenv("SHINY_APP_NAME", unset = NA)
+        shell: Rscript {0}
+        
