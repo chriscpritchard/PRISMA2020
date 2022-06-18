@@ -14,6 +14,9 @@ jobs:
       ANALYTICS_JS: ${{secrets.ANALYTICS_JS}}
       ANALYTICS_ID: ${{secrets.ANALYTICS_ID}}
       ANALYTICS: TRUE
+      DEPLOY_LATEST: TRUE
+      DEPLOY_REPO: ${{github.repository}}
+      DEPLOY_REF: "${{github.ref}}"
     steps:
       - uses: actions/checkout@v2
 
@@ -29,6 +32,8 @@ jobs:
       - uses: r-lib/actions/setup-r@v1
 
       - uses: r-lib/actions/setup-pandoc@v1
+
+      - uses: r-lib/actions/setup-r-dependencies@v1
 
       - name: Query dependencies
         run: |

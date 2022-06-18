@@ -4,12 +4,12 @@ library(rsvg)
 library(DT)
 library(rio)
 library(devtools)
-# This will enable us to host the latest version on shinyapps.io once
-# The new function names are merged.
-# This can be removed once we are on CRAN
-# If the library is already installed, this won't do anything
-if (!require(PRISMA2020)) {
-  devtools::install_github("nealhaddaway/PRISMA2020")
+# This will enable us to host the latest version on shinyapps.io
+# and enable forks to be deployed
+if (Sys.getenv("DEPLOY_LATEST", unset = FALSE) | !require(PRISMA2020)) {
+  repository <- Sys.getenv("DEPLOY_REPO", unset = "nealhaddaway/PRISMA2020")
+  reference <- Sys.getenv("DEPLOY_REF", unset = "HEAD")
+  devtools::install_github(repo = repository, ref = reference)
 }
 library(PRISMA2020)
 
