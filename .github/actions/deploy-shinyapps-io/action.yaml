@@ -38,7 +38,7 @@ runs:
           devtools
     - name: Install package
       run: |
-        devtools::install_github(repo = Sys.getenv("DEPLOY_REPO", unset = "nealhaddaway/PRISMA2020"), ref = Sys.getenv("DEPLOY_REF", set = "HEAD"))
+        devtools::install_github(repo = Sys.getenv("DEPLOY_REPO", unset = "nealhaddaway/PRISMA2020"), ref = Sys.getenv("DEPLOY_REF", unset = "HEAD"))
       shell: Rscript {0}
     - name: Deploy to shinyapps.io
       working-directory: ${{env.SHINY_APP_WORKING_DIRECTORY}}
