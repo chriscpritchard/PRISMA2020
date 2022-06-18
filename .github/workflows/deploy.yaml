@@ -124,7 +124,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: deploy release
-        uses: ./.github/actions/deploy-shinyapps-
+        uses: ./.github/actions/deploy-shinyapps-io
         
   deployment_latest:
     needs: R-CMD-check
