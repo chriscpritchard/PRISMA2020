@@ -31,7 +31,6 @@ jobs:
           echo DEPLOY_LATEST="$DEPLOY_LATEST" >> .Renviron
           echo DEPLOY_REPO="$DEPLOY_REPO" >> .Renviron
           echo DEPLOY_REF="$DEPLOY_REF" >> .Renviron
-          cat .Renviron
 
       - uses: r-lib/actions/setup-r@v2
 
