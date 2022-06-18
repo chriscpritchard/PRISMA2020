@@ -21,14 +21,17 @@ ui <- tagList(
   tags$head(
     tags$script(
       src = "labels.js"
-    ),
-    tags$script(
-      src = "https://umami.christopherpritchard.co.uk/umami.js",
-      "async",
-      "defer",
-      "data-website-id" = "ad8fd2af-0af5-493f-8382-820e923fa74a"
     )
   ),
+  # the below enables us to utilise analytics when pushing to shinyapps.io.
+  # if self hosting you can insert your own analytics code here
+  # it is your responsibility to ensure compliance with regulations such as
+  # the EU GDPR
+  ### DO NOT MODIFY BEGIN ANALYTICS ###
+  #                                   #
+  #       INSERT_ANALYTICS_CODE       #
+  #                                   #
+  #### DO NOT MODIFY END ANALYTICS ####
   navbarPage(
     "PRISMA Flow Diagram",
     # Tab 1 ----
