@@ -106,7 +106,7 @@ jobs:
     if: github.event_name == 'release'
     environment: 
       name: Release
-      url: https://${{secrets.SHINY_ACC_NAME}}.shinyapps.io/%{{secrets.SHINY_APP_NAME}}/
+      url: https://${{secrets.SHINY_ACC_NAME}}.shinyapps.io/${{secrets.SHINY_APP_NAME}}/
     env:
       SHINY_ACC_NAME: ${{secrets.SHINY_ACC_NAME}}
       SHINY_APP_NAME: ${{secrets.SHINY_APP_NAME}}
