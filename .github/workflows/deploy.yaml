@@ -69,7 +69,7 @@ jobs:
   pkgdown:
     needs: R-CMD-check
     runs-on: macOS-latest
-    if: github.event_name == 'push' && github.ref_name == ('master' || 'main' || 'actions-update')
+    if: github.event_name == 'push'
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
@@ -129,7 +129,7 @@ jobs:
   deployment_latest:
     needs: R-CMD-check
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref_name == ('master' || 'main' || 'actions-update')
+    if: github.event_name == 'push'
     environment: 
       name: Latest
     env:
