@@ -32,7 +32,10 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@v1
 
       - uses: r-lib/actions/setup-r-dependencies@v1
-        extra-packages: rsconnect, devtools
+        with:
+          extra-packages: |
+            rsconnect
+            devtools
 
       - name: Query dependencies
         run: |
