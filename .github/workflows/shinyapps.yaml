@@ -64,4 +64,5 @@ jobs:
           library(rsconnect)
           setAccountInfo(name = Sys.getenv("SHINY_ACC_NAME", unset=NA), token = Sys.getenv("TOKEN", unset=NA), secret = Sys.getenv("SECRET", unset=NA))
           deployApp(appName = "prisma_flowdiagram")
+        shell: Rscript {0}
         
