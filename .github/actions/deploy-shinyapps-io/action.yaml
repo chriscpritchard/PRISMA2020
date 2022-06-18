@@ -44,6 +44,6 @@ runs:
       working-directory: ${{env.SHINY_APP_WORKING_DIRECTORY}}
       run: |
         library(rsconnect)
-        setAccountInfo(name = Sys.getenv("SHINY_ACC_NAME", unset = NA), token = Sys.getenv("TOKEN", unset = NA), secret = Sys.getenvSECRET", unset=NA))
+        setAccountInfo(name = Sys.getenv("SHINY_ACC_NAME", unset = NA), token = Sys.getenv("TOKEN", unset = NA), secret = Sys.getenv("SECRET", unset=NA))
         deployApp(appName = Sys.getenv("SHINY_APP_NAME", unset = NA))
       shell: Rscript {0}
