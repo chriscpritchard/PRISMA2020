@@ -107,9 +107,10 @@ jobs:
     if: github.event_name == 'release'
     environment: 
       name: Release
+      url: https://chriscpritchard.shinyapps.io/PRISMA_flowdiagram/
     env:
       SHINY_ACC_NAME: ${{secrets.SHINY_ACC_NAME}}
-      SHINY_APP_NAME: ${{secrets.SHINY_APP_NAME}}
+      SHINY_APP_NAME: PRISMA_flowdiagram
       TOKEN: ${{secrets.TOKEN}}
       SECRET: ${{secrets.SECRET}}
       ANALYTICS: TRUE
@@ -132,9 +133,10 @@ jobs:
     if: github.event_name == 'push'
     environment: 
       name: Latest
+      url: https://chriscpritchard.shinyapps.io/PRISMA_flowdiagram_latest/
     env:
       SHINY_ACC_NAME: ${{secrets.SHINY_ACC_NAME}}
-      SHINY_APP_NAME: ${{secrets.SHINY_APP_NAME}}
+      SHINY_APP_NAME: PRISMA_flowdiagram_latest
       TOKEN: ${{secrets.TOKEN}}
       SECRET: ${{secrets.SECRET}}
       ANALYTICS: TRUE
