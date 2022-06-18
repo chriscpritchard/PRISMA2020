@@ -106,7 +106,6 @@ jobs:
     if: github.event_name == 'release'
     environment: 
       name: Release
-      url: https://${{secrets.SHINY_ACC_NAME}}.shinyapps.io/${{secrets.SHINY_APP_NAME}}/
     env:
       SHINY_ACC_NAME: ${{secrets.SHINY_ACC_NAME}}
       SHINY_APP_NAME: ${{secrets.SHINY_APP_NAME}}
@@ -132,7 +131,6 @@ jobs:
     if: github.event_name == 'push' && github.ref_name == ('master' || 'main' || 'actions-update')
     environment: 
       name: Latest
-      url: https://${{secrets.SHINY_ACC_NAME}}.shinyapps.io/%{{secrets.SHINY_APP_NAME}}/
     env:
       SHINY_ACC_NAME: ${{secrets.SHINY_ACC_NAME}}
       SHINY_APP_NAME: ${{secrets.SHINY_APP_NAME}}
