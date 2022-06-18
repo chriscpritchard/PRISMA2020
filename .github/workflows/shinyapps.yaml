@@ -14,7 +14,6 @@ jobs:
       ANALYTICS_JS: ${{secrets.ANALYTICS_JS}}
       ANALYTICS_ID: ${{secrets.ANALYTICS_ID}}
       ANALYTICS: TRUE
-      DEPLOY_LATEST: TRUE
       DEPLOY_REPO: ${{github.repository}}
       DEPLOY_REF: "${{github.ref}}"
     steps:
@@ -23,15 +22,12 @@ jobs:
       - name: Enable analytics & store environment variables
         working-directory: ./inst/shiny-examples/PRISMA_flowdiagram
         run: |
-          sed -i 's/REPLACE_WITH_REAL_URL/${ANALYTICS_JS}/g' ./www/analytics.R
-          sed -i 's/REPLACE_WITH_REAL_ID/${ANALYTICS_ID}/g' ./www/analytics.R
+          sed -i "s#REPLACE_WITH_REAL_URL#${ANALYTICS_JS//#/\\#}/g" ./www/analytics.R
+          sed -i "s#REPLACE_WITH_REAL_ID#${ANALYTICS_ID//#/\\#}/g' ./www/analytics.R
           sed -i '/INSERT_ANALYTICS_CODE/r ./www/analytics.R' ./app.R
           touch .Renviron
           echo ANALYTICS="$ANALYTICS" >> .Renviron
-          echo DEPLOY_LATEST="$DEPLOY_LATEST" >> .Renviron
-          echo DEPLOY_REPO="$DEPLOY_REPO" >> .Renviron
-          echo DEPLOY_REF="$DEPLOY_REF" >> .Renviron
-
+          
       - uses: r-lib/actions/setup-r@v2
 
       - uses: r-lib/actions/setup-pandoc@v2
@@ -57,7 +53,9 @@ jobs:
             devtools
 
       - name: Install package
-        run: R CMD INSTALL .
+        run: |
+          devtools::install_github(repo = Sys.getenv("DEPLOY_REPO", unset = "nealhaddaway/PRISMA2020"), ref = Sys.getenv("DEPLOY_REF", unset = "HEAD"))
+        shell: Rscript {0}
 
       - name: Deploy to shinyapps.io
         working-directory: ./inst/shiny-examples/PRISMA_flowdiagram
@@ -65,4 +63,4 @@ jobs:
           library(rsconnect)
           setAccountInfo(name = Sys.getenv("SHINY_ACC_NAME", unset=NA), token = Sys.getenv("TOKEN", unset=NA), secret = Sys.getenv("SECRET", unset=NA))
           deployApp(appName = "prisma_flowdiagram")
-        shell: Rscript {0}
+        

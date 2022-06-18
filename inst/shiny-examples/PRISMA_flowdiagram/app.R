@@ -4,17 +4,6 @@ library(rsvg)
 library(DT)
 library(rio)
 library(devtools)
-# This will enable us to host the latest version on shinyapps.io
-# and enable forks to be deployed
-if (
-  isTRUE(Sys.getenv("DEPLOY_LATEST", unset = FALSE)) ||
-  !require(PRISMA2020)
-) {
-  print("this is happening!")
-  repository <- Sys.getenv("DEPLOY_REPO", unset = "nealhaddaway/PRISMA2020")
-  reference <- Sys.getenv("DEPLOY_REF", unset = "HEAD")
-  devtools::install_github(repo = repository, ref = reference)
-}
 library(PRISMA2020)
 
 
