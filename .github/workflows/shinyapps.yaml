@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Enable umami analytics
-      run: |
+      - run: |
           sed -i 's/REPLACE_WITH_REAL_URL/${{secrets.ANALYTICS_JS}}/' ./www/analytics.R
           sed -i 's/REPLACE_WITH_REAL_ID/${{secrets.ANALYTICS_ID}}/' ./www/analytics.R
           sed -i -e '/INSERT_ANALYTICS_CODE/r ./www/analytics.R' ./app.R
