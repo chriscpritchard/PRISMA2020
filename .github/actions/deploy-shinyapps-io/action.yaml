@@ -4,10 +4,9 @@ description: "Deploys to ShinyApps.io"
 runs:
   using: "composite"
   steps:
-
     - name: Enable analytics
       if: env.ANALYTICS
-      working-directory: env.SHINY_APP_WORKING_DIRECTORY
+      working-directory: ${{env.SHINY_APP_WORKING_DIRECTORY}}
       run: |
         curl ${ANALYTICS_JS} --output www/${ANALYTICS_JS_FN}
         sed -i "s#REPLACE_WITH_REAL_JS#${ANALYTICS_JS_FN//#/\\#}#g" ./www/analytics.R
@@ -42,7 +41,7 @@ runs:
         devtools::install_github(repo = Sys.getenv("DEPLOY_REPO", unset = "nealhaddaway/PRISMA2020"), ref = Sys.getenv("DEPLOY_REF", set = "HEAD"))
       shell: Rscript {0}
     - name: Deploy to shinyapps.io
-      working-directory: env.SHINY_APP_WORKING_DIRECTORY
+      working-directory: ${{env.SHINY_APP_WORKING_DIRECTORY}}
       run: |
         library(rsconnect)
         setAccountInfo(name = Sys.getenv("SHINY_ACC_NAME", unset = NA), token = Sys.getenv("TOKEN", unset = NA), secret = Sys.getenvSECRET", unset=NA))
