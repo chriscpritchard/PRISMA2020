@@ -20,6 +20,7 @@ jobs:
       ANALYTICS: TRUE
       DEPLOY_REPO: ${{github.repository}}
       DEPLOY_REF: ${{github.ref}}
+
     steps:
       - uses: actions/checkout@v2
 
@@ -68,6 +69,6 @@ jobs:
         run: |
           library(rsconnect)
           setAccountInfo(name = Sys.getenv("SHINY_ACC_NAME", unset = NA), token = Sys.getenv("TOKEN", unset = NA), secret = Sys.getenv("SECRET", unset=NA))
-          deployApp(appName = Sys.getenv("SHINY_APP_NAME", unset = NA)
+          deployApp(appName = Sys.getenv("SHINY_APP_NAME", unset = NA))
         shell: Rscript {0}
         

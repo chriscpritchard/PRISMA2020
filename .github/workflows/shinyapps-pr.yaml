@@ -1,6 +1,7 @@
 on:
-  release:
-    types: [released]
+  pull_request:
+    types: [opened]
+
 
 name: Deploy to ShinyApps (Latest Master)
 
