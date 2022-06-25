@@ -3,6 +3,7 @@ on:
     inputs:
       working-directory:
         description: 'The directory the shiny app is located in within your repository'
+        type: string
         default: './'
       rsconnect-app-name:
         description: 'The name of the app to deploy'
@@ -10,6 +11,7 @@ on:
         required: true
       rsconnect-account-name:
         description: 'The account name for publishing'
+        type: string
         required: false
       environment:
         description: 'The environment to run the workflow'
@@ -17,6 +19,7 @@ on:
         required: true
       environment-url:
         description: 'The URL for the environment'
+        type: string
     secrets:
       rsconnect-account-token:
         description: 'The token for publishing to ShinyApps.io'
