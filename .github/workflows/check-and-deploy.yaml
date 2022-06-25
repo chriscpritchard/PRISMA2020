@@ -28,7 +28,7 @@ jobs:
       url: https://chriscpritchard.shinyapps.io/PRISMA_flowdiagram_latest/
     uses: ./.github/workflows/deploy.yaml
       with:
-        rsconnect-account-name: ${{ secrets.SHINY_ACC_NAME }}
+        rsconnect-account-name: chriscpritchard
         rsconnect-app-name: "PRISMA_flowdiagram_latest"
         working-directory: "./inst/shiny-examples/PRISMA_flowdiagram"
       secrets:
