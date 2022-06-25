@@ -29,7 +29,7 @@ jobs:
     uses: ./.github/workflows/deploy.yaml
     with:
       rsconnect-account-name: ${{ secrets.SHINY_ACC_NAME }}
-      rsconnect-app-name: PRISMA_flowdiagram_latest
+      rsconnect-app-name: "PRISMA_flowdiagram_latest"
       working-directory: "./inst/shiny-examples/PRISMA_flowdiagram"
     secrets:
       rsconnect-account-token: ${{ secrets.TOKEN }}
