@@ -9,10 +9,6 @@ on:
         description: 'The name of the app to deploy'
         type: string
         required: true
-      rsconnect-account-name:
-        description: 'The account name for publishing'
-        type: string
-        required: false
       environment:
         description: 'The environment to run the workflow'
         type: string
@@ -26,6 +22,10 @@ on:
         required: false
       rsconnect-account-secret:
         description: 'The secret for publishing to ShinyApps.io'
+        required: false
+      rsconnect-account-name:
+        description: 'The account name for publishing'
+        type: string
         required: false
 
 name: Deploy
