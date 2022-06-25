@@ -26,7 +26,7 @@ jobs:
     with:
       install-package: true
       rsconnect-account-name: "chriscpritchard"
-      rsconnect-app-name: "PRISMA_flowdiagram_latest"
+      rsconnect-app-name: "PRISMA_flowdiagram_latest1"
       working-directory: "./inst/shiny-examples/PRISMA_flowdiagram"
       environment: "Latest"
     secrets:
