@@ -29,7 +29,7 @@ jobs:
       rsconnect-app-name: "PRISMA_flowdiagram_latest"
       working-directory: "./inst/shiny-examples/PRISMA_flowdiagram"
       environment: "Latest"
-      URL: "https://chriscpritchard.shinyapps.io/PRISMA_flowdiagram_latest"
+      environment-url: "https://chriscpritchard.shinyapps.io/PRISMA_flowdiagram_latest"
     secrets:
       rsconnect-account-token: ${{ secrets.TOKEN }}
       rsconnect-account-secret: ${{ secrets.SECRET }}
