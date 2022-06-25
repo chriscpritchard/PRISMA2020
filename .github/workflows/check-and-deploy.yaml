@@ -36,6 +36,7 @@ jobs:
     if: github.event_name == 'release'
     uses: ./.github/workflows/deploy.yaml
     with:
+      install-package: true
       rsconnect-account-name: "chriscpritchard"
       rsconnect-app-name: "PRISMA_flowdiagram"
       working-directory: "./inst/shiny-examples/PRISMA_flowdiagram"

@@ -17,6 +17,10 @@ on:
         description: 'The account name for publishing'
         type: string
         required: true
+      install-package:
+        description: 'Whether or not this git package needs to be installed for the shiny app to work'
+        type: boolean
+        default: false
     secrets:
       rsconnect-account-token:
         description: 'The token for publishing to ShinyApps.io'
@@ -32,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: 
       name: ${{ inputs.environment }}
-      url: ${{ inputs.rsconnect-account-name }}.shinyapps.io/${{ inputs.rsconnect-app-name }}
+      url: https://${{ inputs.rsconnect-account-name }}.shinyapps.io/${{ inputs.rsconnect-app-name }}
     env:
       SHINY_ACC_NAME: ${{ inputs.rsconnect-account-name }}
       SHINY_APP_NAME: ${{ inputs.rsconnect-app-name }}
@@ -48,7 +52,11 @@ jobs:
           extra-packages: |
             rsconnect
             devtools
-            github::${{ github.repository }}@${{ github.ref }}
+      - name: Install package
+        if: inputs.install-package
+        run: |
+          pak::pkg_install("github::${{ github.repository }}@${{ github.ref }}")
+        shell: Rscript {0}
       - name: Deploy to ShinyApps.io
         working-directory: ${{ inputs.working-directory }}
         run: |
