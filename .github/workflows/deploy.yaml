@@ -53,7 +53,6 @@ jobs:
             devtools
             github::${{ github.repository }}@${{ github.ref }}
       - name: Deploy to ShinyApps.io
-        if: rsconnect-custom-server == false
         working-directory: ${{ inputs.working-directory }}
         run: |
           library(rsconnect)
