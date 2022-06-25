@@ -9,19 +9,19 @@ on:
         required: true
       rsconnect-account-name:
         description: 'The account name for publishing'
-        required: true
+        required: false
       environment:
         description: 'The environment to run the workflow'
         required: true
       environment-url:
         description: 'The URL for the environment'
     secrets:
-      rsconnect-account-token:
+      TOKEN:
         description: 'The token for publishing to ShinyApps.io'
-        required: true
-      rsconnect-account-secret:
+        required: false
+      SECRET:
         description: 'The secret for publishing to ShinyApps.io'
-        required: true
+        required: false
 
 name: Deploy
 
@@ -32,10 +32,10 @@ jobs:
       name: ${{ inputs.environment }}
       url: ${{ inputs.environment-url }}
     env:
-      SHINY_ACC_NAME: ${{ inputs.rsconnect-account-name }}
+      SHINY_ACC_NAME: ${{ secrets.SHINY_ACC_NAME }}
       SHINY_APP_NAME: ${{ inputs.rsconnect-app-name }}
-      TOKEN: ${{ secrets.rsconnect-account-token }}
-      SECRET: ${{ secrets.rsconnect-account-secret }}
+      TOKEN: ${{ secrets.TOKEN }}
+      SECRET: ${{ secrets.SECRET }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v2
