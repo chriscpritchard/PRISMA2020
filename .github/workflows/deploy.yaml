@@ -22,6 +22,7 @@ name: Deploy
 
 jobs:
   deploy:
+    runs-on: ubuntu-latest
     env:
       SHINY_ACC_NAME: ${{ inputs.rsconnect-account-name }}
       SHINY_APP_NAME: ${{ inputs.rsconnect-app-name }}

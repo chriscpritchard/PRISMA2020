@@ -23,7 +23,6 @@ jobs:
   deploy-latest:
     needs: pkgdown
     if: github.event_name == 'push'
-    runs-on: ubuntu-latest
     environment: 
       name: Latest
       url: https://chriscpritchard.shinyapps.io/PRISMA_flowdiagram_latest/
