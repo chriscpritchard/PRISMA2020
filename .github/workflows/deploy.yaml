@@ -16,16 +16,17 @@ on:
       environment-url:
         description: 'The URL for the environment'
         type: string
+      rsconnect-account-name:
+        description: 'The account name for publishing'
+        type: string
+        required: true
     secrets:
       rsconnect-account-token:
         description: 'The token for publishing to ShinyApps.io'
-        required: false
+        required: true
       rsconnect-account-secret:
         description: 'The secret for publishing to ShinyApps.io'
-        required: false
-      rsconnect-account-name:
-        description: 'The account name for publishing'
-        required: false
+        required: true
 
 name: Deploy
 
@@ -34,9 +35,9 @@ jobs:
     runs-on: ubuntu-latest
     environment: 
       name: ${{ inputs.environment }}
-      url: ${{ inputs.environment-url }}
+      url: ${{ inputs.rsconnect-account-name }}.shinyapps.io/${{ inputs.rsconnect-app-name }}
     env:
-      SHINY_ACC_NAME: ${{ secrets.rsconnect-account-name }}
+      SHINY_ACC_NAME: ${{ inputs.rsconnect-account-name }}
       SHINY_APP_NAME: ${{ inputs.rsconnect-app-name }}
       TOKEN: ${{ secrets.rsconnect-account-token }}
       SECRET: ${{ secrets.rsconnect-account-secret }}

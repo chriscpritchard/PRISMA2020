@@ -32,3 +32,16 @@ jobs:
       rsconnect-account-name: ${{ secrets.SHINY_ACC_NAME }}
       rsconnect-account-token: ${{ secrets.TOKEN }}
       rsconnect-account-secret: ${{ secrets.SECRET }}
+  deploy-release:
+    needs: R-CMD-check
+    if: github.event_name == 'release'
+    uses: ./.github/workflows/deploy.yaml
+    with:
+      rsconnect-account-name: "chriscpritchard"
+      rsconnect-app-name: "PRISMA_flowdiagram"
+      working-directory: "./inst/shiny-examples/PRISMA_flowdiagram"
+      environment: "Release"
+      environment-url: "https://chriscpritchard.shinyapps.io/PRISMA_flowdiagram"
+    secrets:
+      rsconnect-account-token: ${{ secrets.TOKEN }}
+      rsconnect-account-secret: ${{ secrets.SECRET }}
