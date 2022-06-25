@@ -15,8 +15,8 @@ on:
 name: Check & Deploy
 jobs:
   R-CMD-Check:
-    uses: ./.github/workflows/R-CMD-Check.yaml@github-actions
+    uses: ./.github/workflows/R-CMD-check.yaml
   pkgdown:
     needs: R-CMD-check
     if: github.event_name == 'push'
-    uses: ./.github/workflows/pkgdown.yaml@github-actions
+    uses: ./.github/workflows/pkgdown.yaml
