@@ -14,16 +14,17 @@ on:
 name: Check & Deploy
 jobs:
   R-CMD-Check:
-    uses: ./.github/workflows/R-CMD-check.yaml
+    uses: prisma-flowdiagram/r-workflows/.github/workflows/R-CMD-check.yml@v1
   pkgdown:
     needs: R-CMD-check
     if: github.event_name == 'push'
-    uses: ./.github/workflows/pkgdown.yaml
+    uses: prisma-flowdiagram/r-workflows/.github/workflows/pkgdown.yml@v1
   deploy-latest:
     needs: pkgdown
     if: github.event_name == 'push'
-    uses: ./.github/workflows/deploy.yaml
+    uses: prisma-flowdiagram/r-workflows/.github/workflows/deploy.yml@v1
     with:
+      install-package: true
       rsconnect-account-name: "chriscpritchard"
       rsconnect-app-name: "PRISMA_flowdiagram_latest"
       working-directory: "./inst/shiny-examples/PRISMA_flowdiagram"
@@ -34,7 +35,7 @@ jobs:
   deploy-release:
     needs: R-CMD-check
     if: github.event_name == 'release'
-    uses: ./.github/workflows/deploy.yaml
+    uses: prisma-flowdiagram/r-workflows/.github/workflows/deploy.yml@v1
     with:
       install-package: true
       rsconnect-account-name: "chriscpritchard"
