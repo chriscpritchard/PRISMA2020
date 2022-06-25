@@ -6,20 +6,22 @@ on:
         default: './'
       rsconnect-app-name:
         description: 'The name of the app to deploy'
+        type: string
         required: true
       rsconnect-account-name:
         description: 'The account name for publishing'
         required: false
       environment:
         description: 'The environment to run the workflow'
+        type: string
         required: true
       environment-url:
         description: 'The URL for the environment'
     secrets:
-      TOKEN:
+      rsconnect-account-token:
         description: 'The token for publishing to ShinyApps.io'
         required: false
-      SECRET:
+      rsconnect-account-secret:
         description: 'The secret for publishing to ShinyApps.io'
         required: false
 
@@ -34,8 +36,8 @@ jobs:
     env:
       SHINY_ACC_NAME: ${{ secrets.SHINY_ACC_NAME }}
       SHINY_APP_NAME: ${{ inputs.rsconnect-app-name }}
-      TOKEN: ${{ secrets.TOKEN }}
-      SECRET: ${{ secrets.SECRET }}
+      TOKEN: ${{ secrets.rsconnect-account-token }}
+      SECRET: ${{ secrets.rsconnect-account-secret }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v2
@@ -48,6 +50,7 @@ jobs:
             devtools
             github::${{ github.repository }}@${{ github.ref }}
       - name: Deploy to ShinyApps.io
+        if: rsconnect-custom-server == false
         working-directory: ${{ inputs.working-directory }}
         run: |
           library(rsconnect)
