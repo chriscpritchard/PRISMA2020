@@ -13,9 +13,6 @@ on:
         description: 'The environment to run the workflow'
         type: string
         required: true
-      environment-url:
-        description: 'The URL for the environment'
-        type: string
       rsconnect-account-name:
         description: 'The account name for publishing'
         type: string
