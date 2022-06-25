@@ -10,7 +10,6 @@ on:
       rsconnect-account-name:
         description: 'The account name for publishing'
         required: true
-
     secrets:
       rsconnect-account-token:
         description: 'The token for publishing to ShinyApps.io'
