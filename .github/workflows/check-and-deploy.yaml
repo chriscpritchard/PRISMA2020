@@ -23,14 +23,13 @@ jobs:
   deploy-latest:
     needs: pkgdown
     if: github.event_name == 'push'
-    environment: 
-      name: Latest
-      url: https://chriscpritchard.shinyapps.io/PRISMA_flowdiagram_latest/
     uses: ./.github/workflows/deploy.yaml
     with:
       rsconnect-account-name: ${{ secrets.SHINY_ACC_NAME }}
       rsconnect-app-name: "PRISMA_flowdiagram_latest"
       working-directory: "./inst/shiny-examples/PRISMA_flowdiagram"
+      environment: "Latest"
+      URL: "https://chriscpritchard.shinyapps.io/PRISMA_flowdiagram_latest"
     secrets:
       rsconnect-account-token: ${{ secrets.TOKEN }}
       rsconnect-account-secret: ${{ secrets.SECRET }}

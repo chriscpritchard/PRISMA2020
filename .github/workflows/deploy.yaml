@@ -10,6 +10,11 @@ on:
       rsconnect-account-name:
         description: 'The account name for publishing'
         required: true
+      environment:
+        description: 'The environment to run the workflow'
+        required: true
+      environment-url:
+        description: 'The URL for the environment'
     secrets:
       rsconnect-account-token:
         description: 'The token for publishing to ShinyApps.io'
@@ -23,6 +28,9 @@ name: Deploy
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: 
+      name: ${{ inputs.environment }}
+      url: name: ${{ inputs.environment-url }}
     env:
       SHINY_ACC_NAME: ${{ inputs.rsconnect-account-name }}
       SHINY_APP_NAME: ${{ inputs.rsconnect-app-name }}
