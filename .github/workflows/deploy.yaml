@@ -1,0 +1,60 @@
+on:
+  workflow_call:
+    inputs:
+      working-directory:
+        description: 'The directory the shiny app is located in within your repository'
+        default: './'
+      rsconnect-app-name:
+        description: 'The name of the app to deploy'
+        required: true
+      rsconnect-account-name:
+        description: 'The account name for publishing'
+        required: true
+
+    secrets:
+      rsconnect-account-token:
+        description: 'The token for publishing to ShinyApps.io'
+        required: true
+      rsconnect-account-secret:
+        description: 'The secret for publishing to ShinyApps.io'
+        required: true
+
+name: deploy
+jobs:
+    env:
+      SHINY_ACC_NAME: ${{ inputs.rsconnect-account-name }}
+      SHINY_APP_NAME: ${{ inputs.rsconnect-app-name }}
+      TOKEN: ${{ secrets.rsconnect-account-token }}
+      SECRET: ${{ secrets.rsconnect-account-secret }}
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      SHINY_APP_WORKING_DIRECTORY: ${{ inputs.working-directory }}
+  steps:
+    - uses: actions/checkout@v2
+    - name: Set up analytics
+      working-directory: ${{}}
+      run: |
+        curl ${{}} --output www/${{}}
+        sed -i "s#REPLACE_WITH_REAL_JS#${ANALYTICS_JS_FN//#/\\#}#g" ./www/analytics.R
+        sed -i "s#REPLACE_WITH_REAL_ID#${ANALYTICS_ID//#/\\#}#g" ./www/analytics.R
+        sed -i "s#REPLACE_WITH_ANALYTICS_HOST#${ANALYTICS_HOST//#/\\#}#g" ./www/analytics.R
+        sed -i '/INSERT_ANALYTICS_CODE/r ./www/analytics.R' ./app.R
+        sed -i '/INSERT_ANALYTICS_INFORMATION/r ./www/analytics-info.R' ./app.R 
+        touch .Renviron
+        echo ANALYTICS="$ANALYTICS" >> .Renviron
+      shell: bash
+    - uses: r-lib/actions/setup-r@v2
+    - uses: r-lib/actions/setup-pandoc@v2
+    - uses: r-lib/actions/setup-r-dependencies@v2
+      with:
+        extra-packages: |
+          rsconnect
+          devtools
+          github::${{ github.repository }}@${{ github.ref }}
+    - name: Deploy to ShinyApps.io
+      if: rsconnect-custom-server == false
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        library(rsconnect)
+        setAccountInfo(name = Sys.getenv("SHINY_ACC_NAME", unset = NA), token = Sys.getenv("TOKEN", unset = NA), secret = Sys.getenv("SECRET", unset=NA))
+        deployApp(appName = Sys.getenv("SHINY_APP_NAME", unset = NA))
+      shell: Rscript {0}

@@ -1,0 +1,36 @@
+on:
+  release:
+    types: [released]
+  pull_request:
+    types: [assigned, opened, synchronize, reopened]
+    branches:
+      - main
+      - master
+  push:
+    branches:
+      - main
+      - master
+      - github-actions
+
+name: Check & Deploy
+jobs:
+  R-CMD-Check:
+    uses: ./.github/workflows/R-CMD-check.yaml
+  pkgdown:
+    needs: R-CMD-check
+    if: github.event_name == 'push'
+    uses: ./.github/workflows/pkgdown.yaml
+  deploy-latest:
+    needs: pkgdown
+    if: github.event_name == 'push'
+    environment: 
+      name: Latest
+      url: https://chriscpritchard.shinyapps.io/PRISMA_flowdiagram_latest/
+    uses: ./.github/workflows/deploy.yaml
+      with:
+        rsconnect-account-name: ${{ secrets.SHINY_ACC_NAME }}
+        rsconnect-app-name: PRISMA_flowdiagram_latest
+        working-directory: ./inst/shiny-examples/PRISMA_flowdiagram
+      secrets:
+        rsconnect-account-token: ${{ secrets.TOKEN }}
+        rsconnect-account-secret: ${{ secrets.SECRET }}
