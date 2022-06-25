@@ -13,7 +13,7 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: |
-          pkgdown
+            pkgdown
       - name: Install package
         run: R CMD INSTALL .
       - name: Deploy package
