@@ -25,7 +25,6 @@ on:
         required: false
       rsconnect-account-name:
         description: 'The account name for publishing'
-        type: string
         required: false
 
 name: Deploy
